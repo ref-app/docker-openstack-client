@@ -13,7 +13,8 @@ jobs:
             docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PWD}"
             docker build . -t ${APP}
             docker tag ${APP} "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
-            docker push "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
+            docker tag ${APP} "${DOCKERHUB_USER}/${APP}:latest"
+            docker push "${DOCKERHUB_USER}/${APP}"
 
 workflows:
   build:
