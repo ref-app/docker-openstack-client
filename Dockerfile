@@ -12,11 +12,16 @@ RUN python -m ensurepip
 
 RUN apk add --update \
   ca-certificates \
-  gcc  \
-  libffi-dev \
+  bash \
+  openssl \
   openssl-dev \
+  && rm -rf /var/cache/apk/*
+
+RUN apk add --update \
+  gcc  \
   musl-dev \
   linux-headers \
+  libffi-dev \
   && pip install --upgrade --no-cache-dir pip setuptools python-openstackclient ${OPENSTACK_PACKAGES} \
   && apk del gcc musl-dev linux-headers libffi-dev \
   && rm -rf /var/cache/apk/*
