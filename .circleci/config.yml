@@ -4,6 +4,7 @@ jobs:
   build-docker:
     machine: true
     steps:
+      - checkout
       - run:
           name: "Build and push docker image" 
           environment:
