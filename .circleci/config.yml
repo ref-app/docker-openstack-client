@@ -1,17 +1,20 @@
 version: 2.1
 
+jobs:
+  build-docker:
+    machine: true
+    steps:
+      - run:
+          name: "Build and push docker image" 
+          environment:
+            APP: openstackclient
+          command: |              
+            docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PWD}"
+            docker build . -t ${APP}
+            docker tag ${APP} "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
+            docker push "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
+
 workflows:
   build:
     jobs:
-      - build-docker:
-          machine: true
-          steps:
-            - run:
-              name: "Build and push docker image" 
-              environment:
-                APP: openstackclient
-              command: |              
-                docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PWD}"
-                docker build . -t ${APP}
-                docker tag ${APP} "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
-                docker push "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
+      - build-docker
