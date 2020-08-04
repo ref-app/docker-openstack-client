@@ -6,11 +6,11 @@ Rather than futzing with all of the python dependencies to get the openstack cli
 ## Quick Start
 
 ```bash
-docker pull jmcvea/openstack-client
+docker pull perbergland/openstack-client
 
 # $(PWD) is mounted to allow for actions requiring host filesystem access.  
 # See 'Tips' section below
-docker run -ti --rm -v $(PWD):/data jmcvea/openstack-client
+docker run -ti --rm -v $(PWD):/data perbergland/openstack-client
 
 # source the rc config file
 $ source /data/openrc.sh
