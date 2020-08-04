@@ -8,5 +8,10 @@ workflows:
           steps:
             - run:
               name: "Build and push docker image" 
-              command: |
-                docker build .
+              environment:
+                APP: openstackclient
+              command: |              
+                docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PWD}"
+                docker build . -t ${APP}
+                docker tag ${APP} "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
+                docker push "${DOCKERHUB_USER}/${APP}:${CIRCLE_SHA1}"
