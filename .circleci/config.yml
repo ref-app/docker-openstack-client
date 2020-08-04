@@ -1,0 +1,12 @@
+version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - build-docker:
+          machine: true
+          steps:
+            - run:
+              name: "Build and push docker image" 
+              command: |
+                docker build .
