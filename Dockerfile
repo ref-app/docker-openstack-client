@@ -1,23 +1,23 @@
-FROM alpine:latest
+FROM python:3-alpine
 
 # MAINTAINER Jim McVea <jmcvea@gmail.com>
-MAINTAINER Per Bergland <per@refapp.se>
+LABEL maintainer="Per Bergland <per@refapp.se>"
 
 LABEL Description="Provides openstack client tools" Version="0.1"
 
-# Alpine-based installation
-# #########################
+# Packages in addition to openstack core
+ARG OPENSTACK_PACKAGES="python-barbicanclient python-octaviaclient"
+
+RUN python -m ensurepip
+
 RUN apk add --update \
-  python-dev \
-  py-pip \
-  py-setuptools \
   ca-certificates \
-  gcc \
+  gcc  \
   libffi-dev \
   openssl-dev \
   musl-dev \
   linux-headers \
-  && pip install --upgrade --no-cache-dir pip setuptools python-openstackclient \
+  && pip install --upgrade --no-cache-dir pip setuptools python-openstackclient ${OPENSTACK_PACKAGES} \
   && apk del gcc musl-dev linux-headers libffi-dev \
   && rm -rf /var/cache/apk/*
 
