@@ -1,6 +1,7 @@
 FROM alpine:latest
 
-MAINTAINER Jim McVea <jmcvea@gmail.com>
+# MAINTAINER Jim McVea <jmcvea@gmail.com>
+MAINTAINER Per Bergland <per@refapp.se>
 
 LABEL Description="Provides openstack client tools" Version="0.1"
 
