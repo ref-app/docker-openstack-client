@@ -13,6 +13,7 @@ RUN python -m ensurepip
 RUN apk add --update \
   ca-certificates \
   bash \
+  jq \
   openssl \
   openssl-dev \
   && rm -rf /var/cache/apk/*
